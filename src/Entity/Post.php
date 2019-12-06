@@ -4,9 +4,13 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"post:read"}, "swagger_definition_name"="Read"},
+ *     denormalizationContext={"groups"={"post:write"}, "swagger_definition_name"="Write"}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
 class Post
@@ -20,6 +24,7 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -31,6 +36,7 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $creator;
 
