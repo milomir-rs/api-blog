@@ -12,7 +12,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     collectionOperations={"get", "post"},
+ *     collectionOperations={
+ *      "get",
+ *      "post"
+ *     },
  *     itemOperations={"get", "patch", "delete"},
  *     shortName="users",
  *     normalizationContext={"groups"={"user:read"}, "swagger_definition_name"="Read"},
@@ -45,6 +48,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user:write"})
      */
     private $password;
 
@@ -94,7 +98,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**

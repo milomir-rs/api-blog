@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"comment:write"}, "swagger_definition_name"="Write"}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ORM\EntityListeners({"App\EventListeners\CommentAddedListener"})
  */
 class Comment
 {
